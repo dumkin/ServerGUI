@@ -13,6 +13,14 @@ namespace ServerGUI.Utilities.Task
             {
                 Trigger = new TriggerWorldSaved();
             }
+            else if (Name == "TriggerPlayerJoin")
+            {
+                Trigger = new TriggerPlayerJoin();
+            }
+            else if (Name == "TriggerPlayerLeft")
+            {
+                Trigger = new TriggerPlayerLeft();
+            }
         }
     }
 }

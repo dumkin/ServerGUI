@@ -6,7 +6,6 @@ using ServerGUI.Utilities.Config;
 using ServerGUI.Utilities.Counter;
 using ServerGUI.Utilities.Project;
 using ServerGUI.Utilities.Task;
-using ServerGUI.Utilities.Triggers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -157,11 +156,12 @@ namespace ServerGUI
 
 			Color color = Color.Black;
 
-			Regex regexInfo = new Regex("INFO", RegexOptions.IgnoreCase);
-			Regex regexWarning = new Regex("WARN", RegexOptions.IgnoreCase);
-			Regex regexError = new Regex("ERROR", RegexOptions.IgnoreCase);
+			Regex regexInfo = new Regex("^\\[[0-9]{2}:[0-9]{2}:[0-9]{2}\\] \\[Server thread/INFO\\]: ", RegexOptions.IgnoreCase);
+			Regex regexWarning = new Regex("^\\[[0-9]{2}:[0-9]{2}:[0-9]{2}\\] \\[Server thread/WARN\\]: ", RegexOptions.IgnoreCase);
+			Regex regexError = new Regex("^\\[[0-9]{2}:[0-9]{2}:[0-9]{2}\\] \\[Server thread/ERROR\\]: ", RegexOptions.IgnoreCase);
+            Regex regexShutdown = new Regex("^\\[[0-9]{2}:[0-9]{2}:[0-9]{2}\\] \\[Server Shutdown Thread/INFO\\]: ", RegexOptions.IgnoreCase);
 
-			if (regexInfo.IsMatch(Text))
+            if (regexInfo.IsMatch(Text))
 			{
 				color = Color.Blue;
 			}
@@ -173,8 +173,12 @@ namespace ServerGUI
 			{
 				color = Color.Red;
 			}
+            else if (regexShutdown.IsMatch(Text))
+            {
+                color = Color.BlueViolet;
+            }
 
-			Text += "\n";
+            Text += "\n";
 
 			Main_Log.AppendText(Text);
 			Main_Log.Select(IndexLastSymbol, Text.Length);

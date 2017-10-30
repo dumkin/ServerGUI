@@ -98,6 +98,8 @@
     <Compile Include="Utilities\Translate\Translate.cs" />
     <Compile Include="Utilities\Translate\Vault\VaultMessage.cs" />
     <Compile Include="Utilities\Triggers\ITrigger.cs" />
+    <Compile Include="Utilities\Triggers\TriggerPlayerJoin.cs" />
+    <Compile Include="Utilities\Triggers\TriggerPlayerLeft.cs" />
     <Compile Include="Utilities\Triggers\TriggerWorldSaved.cs" />
     <EmbeddedResource Include="GUI\Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>
