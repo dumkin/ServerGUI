@@ -5,7 +5,7 @@ namespace ServerGUI.Utilities.Triggers
 {
     public class TriggerWorldSaved : ITrigger
     {
-        int LastCheckIndex = VaultLog.Data.Count - 1;
+        private int LastCheckIndex = VaultLog.Data.Count - 1;
 
         public bool Check()
         {

@@ -8,8 +8,8 @@ namespace ServerGUI.GUI
 {
     public partial class Form_Project : Form
     {
-        ProjectList Projects = new ProjectList();
-        ConfigSystem Config = new ConfigSystem();
+        private ProjectList Projects = new ProjectList();
+        private ConfigSystem Config = new ConfigSystem();
 
         public Form_Project()
         {
@@ -28,6 +28,7 @@ namespace ServerGUI.GUI
                 Main_ProjectList.Items.Add(Item);
             }
         }
+
         private void Form_Project_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
@@ -44,6 +45,7 @@ namespace ServerGUI.GUI
 
             Directory.Delete(Path + "\\ServerGUI", true);
         }
+
         private void Main_CreateProject_Click(object sender, EventArgs e)
         {
             if (Main_Dialog_ChooseFolder.ShowDialog() == DialogResult.OK)
@@ -57,11 +59,13 @@ namespace ServerGUI.GUI
                 Hide();
             }
         }
+
         private void Main_OpenProject_Click(object sender, EventArgs e)
         {
             Form_Main.WorkingDirectory = Main_ProjectList.SelectedItem.ToString();
             Hide();
         }
+
         private void Main_ProjectList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (Main_ProjectList.SelectedIndex >= 0)

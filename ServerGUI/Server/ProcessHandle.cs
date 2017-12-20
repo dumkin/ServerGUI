@@ -34,6 +34,7 @@ namespace ServerGUI.Server
         public CounterCpu CounterCpu;
 
         public delegate void EventStateChanged();
+
         public delegate void EventCallbackOutput(string text);
 
         private EventStateChanged CallbackStateChanged;

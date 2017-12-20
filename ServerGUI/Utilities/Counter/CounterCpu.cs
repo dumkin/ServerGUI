@@ -13,6 +13,7 @@ namespace ServerGUI.Utilities.Counter
         {
             Counter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
         }
+
         public CounterCpu(int Id)
         {
             Counter = new PerformanceCounter("Process", "% Processor Time", Process.GetProcessById(Id).ProcessName);

@@ -14,8 +14,8 @@ namespace ServerGUI.Utilities.Counter
 
         public CounterRam()
         {
-
         }
+
         public CounterRam(int Id)
         {
             Counter = new PerformanceCounter("Process", "Working Set", Process.GetProcessById(Id).ProcessName);
@@ -31,10 +31,12 @@ namespace ServerGUI.Utilities.Counter
 
             return Convert.ToInt32(Counter.NextValue() / 1024 / 1024);
         }
+
         public Int32 GetAvailable()
         {
             return Convert.ToInt32(CounterAvailable.NextValue());
         }
+
         public Int32 GetUsagePercent()
         {
             if (CounterTotal)
@@ -46,6 +48,7 @@ namespace ServerGUI.Utilities.Counter
                 return GetUsage() * 100 / Total;
             }
         }
+
         public Int32 GetAvailablePercent()
         {
             return GetAvailable() / Total;
