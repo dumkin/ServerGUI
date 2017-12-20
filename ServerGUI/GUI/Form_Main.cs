@@ -81,9 +81,9 @@ namespace ServerGUI
             Project.AutoRestart = Main_Autorestart.Checked;
             Project.AutoBackup = Main_Autobackup.Checked;
 
-            Project.JavaFilename = Core_JavaFilename.Text;
+            Project.JavaFileName = Core_JavaFilename.Text;
             Project.JavaArguments = Core_JavaArguments.Text;
-            Project.CoreFilename = Core_CoreFilename.Text;
+            Project.CoreFileName = Core_CoreFilename.Text;
             Project.CoreArguments = Core_CoreArguments.Text;
 
             Project.BackupFolder = Backup_Folder.Text;
@@ -102,10 +102,10 @@ namespace ServerGUI
             Main_Autorestart.Checked = Project.AutoRestart;
             Main_Autobackup.Checked = Project.AutoBackup;
 
-            Core_JavaFilename.Text = Project.JavaFilename;
+            Core_JavaFilename.Text = Project.JavaFileName;
             Core_JavaArguments.Text = Project.JavaArguments;
 
-            Core_CoreFilename.Text = Project.CoreFilename;
+            Core_CoreFilename.Text = Project.CoreFileName;
             Core_CoreArguments.Text = Project.CoreArguments;
 
             Backup_Folder.Text = Project.BackupFolder;
