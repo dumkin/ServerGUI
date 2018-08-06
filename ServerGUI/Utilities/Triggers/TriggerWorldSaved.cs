@@ -13,7 +13,7 @@ namespace ServerGUI.Utilities.Triggers
 
             for (int i = LastCheckIndex; i <= NewLastCheckIndex; i++)
             {
-                Regex Regex = new Regex("^\\[[0-9]{2}:[0-9]{2}:[0-9]{2}\\] \\[Server thread/INFO\\]: Saved the world$", RegexOptions.None);
+                Regex Regex = new Regex("^\\[[0-9]{2}:[0-9]{2}:[0-9]{2}\\] \\[Server thread/INFO\\]: Saved the game", RegexOptions.None);
 
                 if (Regex.IsMatch(VaultLog.Data[i]))
                 {

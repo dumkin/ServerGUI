@@ -160,16 +160,18 @@ namespace ServerGUI
 
             Color color = Color.Black;
 
+            Regex regexMainInfo = new Regex("^\\[[0-9]{2}:[0-9]{2}:[0-9]{2}\\] \\[main/INFO\\]: ", RegexOptions.IgnoreCase);
+            Regex regexMainWarning = new Regex("^\\[[0-9]{2}:[0-9]{2}:[0-9]{2}\\] \\[main/WARN\\]: ", RegexOptions.IgnoreCase);
             Regex regexInfo = new Regex("^\\[[0-9]{2}:[0-9]{2}:[0-9]{2}\\] \\[Server thread/INFO\\]: ", RegexOptions.IgnoreCase);
             Regex regexWarning = new Regex("^\\[[0-9]{2}:[0-9]{2}:[0-9]{2}\\] \\[Server thread/WARN\\]: ", RegexOptions.IgnoreCase);
             Regex regexError = new Regex("^\\[[0-9]{2}:[0-9]{2}:[0-9]{2}\\] \\[Server thread/ERROR\\]: ", RegexOptions.IgnoreCase);
             Regex regexShutdown = new Regex("^\\[[0-9]{2}:[0-9]{2}:[0-9]{2}\\] \\[Server Shutdown Thread/INFO\\]: ", RegexOptions.IgnoreCase);
 
-            if (regexInfo.IsMatch(Text))
+            if (regexInfo.IsMatch(Text) || regexMainInfo.IsMatch(Text))
             {
                 color = Color.Blue;
             }
-            else if (regexWarning.IsMatch(Text))
+            else if (regexWarning.IsMatch(Text) || regexMainWarning.IsMatch(Text))
             {
                 color = Color.Orange;
             }
@@ -217,6 +219,19 @@ namespace ServerGUI
 
         private void Main_BackupNow_Click(object sender, EventArgs e)
         {
+            Create_Backup();
+        }
+
+        private void Main_Timer_Autobackup_Tick(object sender, EventArgs e)
+        {
+            if (Main_Autobackup.Checked)
+            {
+                Create_Backup();
+            }
+        }
+
+        private void Create_Backup()
+        {
             new Thread(() =>
             {
                 if (Server.Process.Enabled)
@@ -230,6 +245,11 @@ namespace ServerGUI
                     }
                 }
 
+                BeginInvoke(new MethodInvoker(delegate
+                {
+                    Main_Log_Write("Backup creating");
+                }));
+
                 Backup.Sources = BackupList.ToArray();
 
                 Backup.Create();
@@ -239,35 +259,6 @@ namespace ServerGUI
                     Main_Log_Write("Backup created successfully!");
                 }));
             }).Start();
-        }
-
-        private void Main_Timer_Autobackup_Tick(object sender, EventArgs e)
-        {
-            if (Main_Autobackup.Checked)
-            {
-                new Thread(() =>
-                {
-                    if (Server.Process.Enabled)
-                    {
-                        Task Task = new Task("TriggerWorldSaved");
-                        Server.Process.SendCommand("save-all");
-
-                        while (!Task.Trigger.Check())
-                        {
-                            Thread.Sleep(1000);
-                        }
-                    }
-
-                    Backup.Sources = BackupList.ToArray();
-
-                    Backup.Create();
-
-                    BeginInvoke(new MethodInvoker(delegate
-                    {
-                        Main_Log_Write("Backup created successfully!");
-                    }));
-                }).Start();
-            }
         }
 
         private void Main_Autorestart_CheckedChanged(object sender, EventArgs e)
