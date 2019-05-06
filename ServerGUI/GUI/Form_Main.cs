@@ -30,8 +30,8 @@ namespace ServerGUI
         private CounterCpu CounterCpuTotal = new CounterCpu();
         private CounterCpu CounterCpuCurrent = new CounterCpu(Process.GetCurrentProcess().Id);
 
-        public static String WorkingDirectory = "";
-        public List<String> BackupList = new List<String>();
+        public static string WorkingDirectory = "";
+        public List<string> BackupList = new List<string>();
 
         public Form_Main()
         {
@@ -40,7 +40,7 @@ namespace ServerGUI
             Form_Project Project = new Form_Project();
             Project.ShowDialog();
 
-            if (!String.IsNullOrEmpty(WorkingDirectory))
+            if (!string.IsNullOrEmpty(WorkingDirectory))
             {
                 Server.Process.SetCallbackOutput(ServerOutput);
                 Server.Process.SetCallbackStateChanged(ServerStateChanged);
@@ -119,7 +119,7 @@ namespace ServerGUI
         {
             BeginInvoke(new MethodInvoker(delegate
             {
-                if (!String.IsNullOrEmpty(Text))
+                if (!string.IsNullOrEmpty(Text))
                 {
                     Main_Log_Write(Text);
                 }

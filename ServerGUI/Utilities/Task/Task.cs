@@ -1,5 +1,4 @@
 ﻿using ServerGUI.Utilities.Triggers;
-using System;
 
 namespace ServerGUI.Utilities.Task
 {
@@ -7,7 +6,7 @@ namespace ServerGUI.Utilities.Task
     {
         public ITrigger Trigger;
 
-        public Task(String Name)
+        public Task(string Name)
         {
             if (Name == "TriggerWorldSaved")
             {

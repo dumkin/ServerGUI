@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace ServerGUI.Utilities.Project
 {
     public class ProjectList
     {
-        public List<String> Data = new List<String>();
+        public List<string> Data = new List<string>();
 
-        public bool CheckCorrect(String Path)
+        public bool CheckCorrect(string Path)
         {
             return Directory.Exists(Path + "//ServerGUI");
         }
 
         public void ProjectListRepair()
         {
-            List<String> NewData = new List<String>();
+            List<string> NewData = new List<string>();
 
             foreach (var Item in Data)
             {

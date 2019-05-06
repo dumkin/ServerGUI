@@ -9,24 +9,24 @@ namespace ServerGUI.Utilities.Project
         public bool AutoRestart = false;
         public bool AutoBackup = false;
 
-        public String JavaFileName = JavaPath() + "\\bin\\java.exe";
-        public String JavaArguments;
+        public string JavaFileName = JavaPath() + "\\bin\\java.exe";
+        public string JavaArguments;
 
-        public String CoreFileName;
-        public String CoreArguments;
+        public string CoreFileName;
+        public string CoreArguments;
 
         public int BackupInterval = 5;
-        public String BackupFolder = "backups";
-        public List<String> BackupList = new List<String>();
+        public string BackupFolder = "backups";
+        public List<string> BackupList = new List<string>();
 
-        private static String JavaPath()
+        private static string JavaPath()
         {
             try
             {
-                String javaKey = "SOFTWARE\\JavaSoft\\Java Runtime Environment";
+                string javaKey = "SOFTWARE\\JavaSoft\\Java Runtime Environment";
                 var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(javaKey);
 
-                String currentVersion = baseKey.GetValue("CurrentVersion").ToString();
+                string currentVersion = baseKey.GetValue("CurrentVersion").ToString();
                 var homeKey = baseKey.OpenSubKey(currentVersion);
                 return homeKey.GetValue("JavaHome").ToString();
             }
