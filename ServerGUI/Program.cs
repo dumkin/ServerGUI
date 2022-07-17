@@ -1,19 +1,13 @@
-﻿using System;
-using System.Windows.Forms;
+﻿namespace ServerGUI;
 
-namespace ServerGUI
+internal static class Program
 {
-    internal static class Program
+    [STAThread]
+    private static void Main()
     {
-        /// <summary>
-        /// Главная точка входа для приложения.
-        /// </summary>
-        [STAThread]
-        private static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form_Main());
-        }
+        Application.EnableVisualStyles();
+        Application.SetHighDpiMode(HighDpiMode.DpiUnawareGdiScaled);
+        ApplicationConfiguration.Initialize();
+        Application.Run(new Form_Main());
     }
 }

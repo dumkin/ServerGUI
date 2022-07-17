@@ -1,7 +1,6 @@
-﻿namespace ServerGUI.Utilities.Triggers
+﻿namespace ServerGUI.Utilities.Triggers;
+
+public interface ITrigger
 {
-    public interface ITrigger
-    {
-        bool Check();
-    }
+    bool Check();
 }

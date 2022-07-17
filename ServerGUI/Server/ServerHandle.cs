@@ -1,7 +1,6 @@
-﻿namespace ServerGUI.Server
+﻿namespace ServerGUI.Server;
+
+public class ServerHandle
 {
-    public class ServerHandle
-    {
-        public ProcessHandle Process = new ProcessHandle();
-    }
+    public ProcessHandle Process = new();
 }

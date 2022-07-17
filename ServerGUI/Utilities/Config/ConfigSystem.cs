@@ -1,20 +1,18 @@
-﻿using Newtonsoft.Json;
-using System.IO;
+﻿using System.Text.Json;
 
-namespace ServerGUI.Utilities.Config
+namespace ServerGUI.Utilities.Config;
+
+public class ConfigSystem
 {
-    public class ConfigSystem
+    public void Save<T>(T Data, string FilePath)
     {
-        public void Save<T>(T Data, string FilePath)
-        {
-            string Json = JsonConvert.SerializeObject(Data);
-            File.WriteAllText(FilePath, Json);
-        }
+        var Json = JsonSerializer.Serialize(Data);
+        File.WriteAllText(FilePath, Json);
+    }
 
-        public T Load<T>(string FilePath)
-        {
-            string Json = File.ReadAllText(FilePath);
-            return JsonConvert.DeserializeObject<T>(Json);
-        }
+    public T Load<T>(string FilePath)
+    {
+        var Json = File.ReadAllText(FilePath);
+        return JsonSerializer.Deserialize<T>(Json);
     }
 }

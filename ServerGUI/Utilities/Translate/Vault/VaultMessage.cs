@@ -1,6 +1,5 @@
-﻿namespace ServerGUI.Utilities.Translate.Vault
+﻿namespace ServerGUI.Utilities.Translate.Vault;
+
+public class VaultMessage
 {
-    public class VaultMessage
-    {
-    }
 }

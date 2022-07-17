@@ -1,29 +1,26 @@
-﻿using ServerGUI.Server.Vault;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
+using ServerGUI.Server.Vault;
 
-namespace ServerGUI.Utilities.Triggers
+namespace ServerGUI.Utilities.Triggers;
+
+public class TriggerWorldSaved : ITrigger
 {
-    public class TriggerWorldSaved : ITrigger
+    private int LastCheckIndex = VaultLog.Data.Count - 1;
+
+    public bool Check()
     {
-        private int LastCheckIndex = VaultLog.Data.Count - 1;
+        var NewLastCheckIndex = VaultLog.Data.Count - 1;
 
-        public bool Check()
+        for (var i = LastCheckIndex; i <= NewLastCheckIndex; i++)
         {
-            int NewLastCheckIndex = VaultLog.Data.Count - 1;
+            var Regex = new Regex("^\\[[0-9]{2}:[0-9]{2}:[0-9]{2}\\] \\[Server thread/INFO\\]: Saved the game",
+                RegexOptions.None);
 
-            for (int i = LastCheckIndex; i <= NewLastCheckIndex; i++)
-            {
-                Regex Regex = new Regex("^\\[[0-9]{2}:[0-9]{2}:[0-9]{2}\\] \\[Server thread/INFO\\]: Saved the game", RegexOptions.None);
-
-                if (Regex.IsMatch(VaultLog.Data[i]))
-                {
-                    return true;
-                }
-            }
-
-            LastCheckIndex = NewLastCheckIndex;
-
-            return false;
+            if (Regex.IsMatch(VaultLog.Data[i])) return true;
         }
+
+        LastCheckIndex = NewLastCheckIndex;
+
+        return false;
     }
 }

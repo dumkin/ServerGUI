@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
+﻿namespace ServerGUI.Server.Vault;
 
-namespace ServerGUI.Server.Vault
+public class VaultLog
 {
-    public class VaultLog
-    {
-        public static List<string> Data = new List<string>();
-    }
+    public static List<string> Data = new();
 }
