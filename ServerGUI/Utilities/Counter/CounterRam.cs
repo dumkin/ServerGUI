@@ -6,7 +6,9 @@ namespace ServerGUI.Utilities.Counter;
 public class CounterRam
 {
     public static int Total = Convert.ToInt32(new Computer().Info.TotalPhysicalMemory / 1024 / 1024);
+
     private readonly PerformanceCounter Counter;
+
     // private readonly PerformanceCounter CounterAvailable = new("Memory", "Available MBytes");
     private readonly bool CounterTotal = true;
 
@@ -16,7 +18,8 @@ public class CounterRam
 
     public CounterRam(int Id)
     {
-        Counter = new PerformanceCounter("Process V2", "Working Set", Process.GetProcessById(Id).ProcessName + ":" + Id);
+        Counter = new PerformanceCounter("Process V2", "Working Set",
+            Process.GetProcessById(Id).ProcessName + ":" + Id);
         // Counter = new PerformanceCounter("Process", "Working Set", Process.GetProcessById(Id).ProcessName);
         CounterTotal = false;
     }
@@ -32,7 +35,7 @@ public class CounterRam
     {
         return -1;
         // return Convert.ToInt32(CounterAvailable.NextValue());
-    } 
+    }
 
     public int GetUsagePercent()
     {

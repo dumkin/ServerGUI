@@ -10,6 +10,8 @@ public class ProcessHandle
 
     public delegate void EventStateChanged();
 
+    private readonly Process Process = new();
+
     private EventCallbackOutput CallbackOutput;
 
     private EventStateChanged CallbackStateChanged;
@@ -17,8 +19,6 @@ public class ProcessHandle
 
     public CounterRam CounterRam;
     private StreamWriter OutputStream;
-
-    private readonly Process Process = new();
 
     public ProcessHandle()
     {

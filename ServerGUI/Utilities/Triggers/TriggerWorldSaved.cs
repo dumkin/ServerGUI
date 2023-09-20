@@ -13,7 +13,7 @@ public class TriggerWorldSaved : ITrigger
 
         for (var i = LastCheckIndex; i <= NewLastCheckIndex; i++)
         {
-            var Regex = new Regex("^\\[[0-9]{2}:[0-9]{2}:[0-9]{2}\\] \\[Server thread/INFO\\]: Saved the game",
+            var Regex = new Regex("Saved the world$",
                 RegexOptions.None);
 
             if (Regex.IsMatch(VaultLog.Data[i])) return true;

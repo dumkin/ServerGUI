@@ -1,26 +1,19 @@
-﻿using ServerGUI.Utilities.Config;
-using ServerGUI.Utilities.Project;
+﻿using ServerGUI.Utilities.Project;
 
 namespace ServerGUI.GUI;
 
-public partial class Form_Project : Form
+public partial class FormProject : Form
 {
-    private readonly ConfigSystem Config = new();
-    private readonly ProjectList Projects = new();
+    private readonly ProjectListManager _projectManager;
+    public string? SelectedPath;
 
-    public Form_Project()
+    public FormProject(ProjectListManager projectManager)
     {
+        _projectManager = projectManager;
+
         InitializeComponent();
 
-        if (File.Exists(Directory.GetCurrentDirectory() + "\\projects.json"))
-        {
-            Projects = Config.Load<ProjectList>(Directory.GetCurrentDirectory() + "\\projects.json");
-            Projects.ProjectListRepair();
-        }
-
-        Config.Save(Projects, Directory.GetCurrentDirectory() + "\\projects.json");
-
-        foreach (var Item in Projects.Data) Main_ProjectList.Items.Add(Item);
+        foreach (var path in _projectManager.GetAll()) Main_ProjectList.Items.Add(path);
     }
 
     private void Form_Project_FormClosed(object sender, FormClosedEventArgs e)
@@ -30,33 +23,30 @@ public partial class Form_Project : Form
 
     private void Main_DeleteProject_Click(object sender, EventArgs e)
     {
-        var Path = Main_ProjectList.SelectedItem.ToString();
+        var selectedPath = Main_ProjectList.SelectedItem?.ToString();
+        if (string.IsNullOrEmpty(selectedPath)) return;
 
-        Projects.Data.Remove(Path);
+        _projectManager.Delete(selectedPath);
         Main_ProjectList.Items.RemoveAt(Main_ProjectList.SelectedIndex);
-
-        Config.Save(Projects, Directory.GetCurrentDirectory() + "\\projects.json");
-
-        Directory.Delete(Path + "\\ServerGUI", true);
     }
 
     private void Main_CreateProject_Click(object sender, EventArgs e)
     {
-        if (Main_Dialog_ChooseFolder.ShowDialog() == DialogResult.OK)
-        {
-            Main_ProjectList.Items.Add(Main_Dialog_ChooseFolder.SelectedPath);
-            Directory.CreateDirectory(Main_Dialog_ChooseFolder.SelectedPath + "\\ServerGUI");
-            Projects.Data.Add(Main_Dialog_ChooseFolder.SelectedPath);
-            Config.Save(Projects, Directory.GetCurrentDirectory() + "\\projects.json");
+        if (Main_Dialog_ChooseFolder.ShowDialog() != DialogResult.OK) return;
 
-            Form_Main.WorkingDirectory = Main_Dialog_ChooseFolder.SelectedPath;
-            Hide();
-        }
+        Main_ProjectList.Items.Add(Main_Dialog_ChooseFolder.SelectedPath);
+        _projectManager.Create(Main_Dialog_ChooseFolder.SelectedPath);
+
+        SelectedPath = Main_Dialog_ChooseFolder.SelectedPath;
+        Hide();
     }
 
     private void Main_OpenProject_Click(object sender, EventArgs e)
     {
-        Form_Main.WorkingDirectory = Main_ProjectList.SelectedItem.ToString();
+        var selectedPath = Main_ProjectList.SelectedItem?.ToString();
+        if (string.IsNullOrEmpty(selectedPath)) return;
+
+        SelectedPath = selectedPath;
         Hide();
     }
 

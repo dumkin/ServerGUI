@@ -21,7 +21,8 @@ public class CounterCpu
         var category = categories.FirstOrDefault(C => C.CategoryName == "Process V2");
         // var counters = category.GetCounters();
         // Counter = new PerformanceCounter("Process", "% Processor Time", Process.GetProcessById(Id).ProcessName);
-        Counter = new PerformanceCounter("Process V2", "% Processor Time", Process.GetProcessById(Id).ProcessName + ":" + Id);
+        Counter = new PerformanceCounter("Process V2", "% Processor Time",
+            Process.GetProcessById(Id).ProcessName + ":" + Id);
         CounterTotal = false;
     }
 

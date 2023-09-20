@@ -4,53 +4,65 @@ using ServerGUI.GUI;
 using ServerGUI.Server;
 using ServerGUI.Server.Vault;
 using ServerGUI.Utilities.Backup;
-using ServerGUI.Utilities.Config;
 using ServerGUI.Utilities.Counter;
 using ServerGUI.Utilities.Project;
-using Task = ServerGUI.Utilities.Task.Task;
+using ServerGUI.Utilities.Task;
 
 namespace ServerGUI;
 
 public partial class Form_Main : Form
 {
     public static string WorkingDirectory = "";
+
+    private readonly ProjectListManager _projectListManager;
     private readonly Backup Backup = new();
-    public List<string> BackupList = new();
-    private readonly ConfigSystem Config = new();
     private readonly CounterCpu CounterCpuCurrent = new(Process.GetCurrentProcess().Id);
 
     private readonly CounterCpu CounterCpuTotal = new();
     private readonly CounterRam CounterRamCurrent = new(Process.GetCurrentProcess().Id);
 
     private readonly CounterRam CounterRamTotal = new();
-    private Project Project = new();
     private readonly ServerHandle Server = new();
+    private ProjectManager? _projectManager;
+    public List<string> BackupList = new();
 
     public Form_Main()
     {
+        _projectListManager = new ProjectListManager(Path.Join(Directory.GetCurrentDirectory(), "projects.json"));
+
         InitializeComponent();
+    }
 
-        var Project = new Form_Project();
-        Project.ShowDialog();
+    private ProjectModel Project => _projectManager.Project;
 
-        if (!string.IsNullOrEmpty(WorkingDirectory))
-        {
-            Server.Process.SetCallbackOutput(ServerOutput);
-            Server.Process.SetCallbackStateChanged(ServerStateChanged);
+    private void Form_Main_FormLoad(object sender, EventArgs e)
+    {
+        _projectListManager.Load();
 
-            LoadConfig();
+        var formProject = new FormProject(_projectListManager);
+        formProject.ShowDialog();
 
-            Server.Process.WorkingDirectory = WorkingDirectory;
-            Backup.WorkingDirectory = WorkingDirectory;
-            var DirectoryInfo = new DirectoryInfo(WorkingDirectory);
+        if (string.IsNullOrEmpty(formProject.SelectedPath)) return;
 
-            if (DirectoryInfo.Exists) Backup_Tree_Build(DirectoryInfo, Backup_Tree.Nodes, true);
+        WorkingDirectory = formProject.SelectedPath;
+        _projectManager = new ProjectManager(_projectListManager.Get(formProject.SelectedPath));
+        _projectManager.Load();
 
-            Backup_Tree_Load(Backup_Tree.Nodes);
+        Server.Process.SetCallbackOutput(ServerOutput);
+        Server.Process.SetCallbackStateChanged(ServerStateChanged);
 
-            Enabled = true;
-            SaveConfig();
-        }
+        LoadConfig();
+
+        Server.Process.WorkingDirectory = WorkingDirectory;
+        Backup.WorkingDirectory = WorkingDirectory;
+        var DirectoryInfo = new DirectoryInfo(WorkingDirectory);
+
+        if (DirectoryInfo.Exists) Backup_Tree_Build(DirectoryInfo, Backup_Tree.Nodes, true);
+
+        Backup_Tree_Load(Backup_Tree.Nodes);
+
+        Enabled = true;
+        SaveConfig();
     }
 
     private void Form_Main_FormClosed(object sender, FormClosedEventArgs e)
@@ -78,14 +90,12 @@ public partial class Form_Main : Form
         Project.BackupInterval = Convert.ToInt32(Backup_Interval.Value);
         Project.BackupList = BackupList;
 
-        Config.Save(Project, WorkingDirectory + "\\ServerGUI\\config.json");
+        _projectManager?.Save();
+        // ConfigSystem.Save(Project, WorkingDirectory + "\\ServerGUI\\config.json");
     }
 
     private void LoadConfig()
     {
-        if (File.Exists(WorkingDirectory + "\\ServerGUI\\config.json"))
-            Project = Config.Load<Project>(WorkingDirectory + "\\ServerGUI\\config.json");
-
         Main_Autorestart.Checked = Project.AutoRestart;
         Main_Autobackup.Checked = Project.AutoBackup;
 
@@ -207,7 +217,7 @@ public partial class Form_Main : Form
         {
             if (Server.Process.Enabled)
             {
-                var Task = new Task("TriggerWorldSaved");
+                var Task = new TaskTriger("TriggerWorldSaved");
                 Server.Process.SendCommand("save-all");
 
                 while (!Task.Trigger.Check()) Thread.Sleep(1000);

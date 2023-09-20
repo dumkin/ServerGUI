@@ -1,6 +1,6 @@
 ﻿namespace ServerGUI.GUI
 {
-    partial class Form_Project
+    partial class FormProject
     {
         /// <summary>
         /// Required designer variable.
@@ -28,79 +28,82 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Project));
-            this.Main_OpenProject = new System.Windows.Forms.Button();
-            this.Main_ProjectList = new System.Windows.Forms.ListBox();
-            this.Main_CreateProject = new System.Windows.Forms.Button();
-            this.Main_DeleteProject = new System.Windows.Forms.Button();
-            this.Main_Dialog_ChooseFolder = new System.Windows.Forms.FolderBrowserDialog();
-            this.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormProject));
+            Main_OpenProject = new Button();
+            Main_ProjectList = new ListBox();
+            Main_CreateProject = new Button();
+            Main_DeleteProject = new Button();
+            Main_Dialog_ChooseFolder = new FolderBrowserDialog();
+            SuspendLayout();
             // 
             // Main_OpenProject
             // 
-            this.Main_OpenProject.Enabled = false;
-            this.Main_OpenProject.Location = new System.Drawing.Point(20, 300);
-            this.Main_OpenProject.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Main_OpenProject.Name = "Main_OpenProject";
-            this.Main_OpenProject.Size = new System.Drawing.Size(100, 35);
-            this.Main_OpenProject.TabIndex = 0;
-            this.Main_OpenProject.Text = "Open project";
-            this.Main_OpenProject.UseVisualStyleBackColor = true;
-            this.Main_OpenProject.Click += new System.EventHandler(this.Main_OpenProject_Click);
+            Main_OpenProject.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            Main_OpenProject.Enabled = false;
+            Main_OpenProject.Location = new Point(20, 300);
+            Main_OpenProject.Margin = new Padding(3, 4, 3, 4);
+            Main_OpenProject.Name = "Main_OpenProject";
+            Main_OpenProject.Size = new Size(100, 35);
+            Main_OpenProject.TabIndex = 0;
+            Main_OpenProject.Text = "Open project";
+            Main_OpenProject.UseVisualStyleBackColor = true;
+            Main_OpenProject.Click += Main_OpenProject_Click;
             // 
             // Main_ProjectList
             // 
-            this.Main_ProjectList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Main_ProjectList.FormattingEnabled = true;
-            this.Main_ProjectList.ItemHeight = 17;
-            this.Main_ProjectList.Location = new System.Drawing.Point(0, 0);
-            this.Main_ProjectList.Margin = new System.Windows.Forms.Padding(0);
-            this.Main_ProjectList.Name = "Main_ProjectList";
-            this.Main_ProjectList.Size = new System.Drawing.Size(384, 272);
-            this.Main_ProjectList.TabIndex = 1;
-            this.Main_ProjectList.SelectedIndexChanged += new System.EventHandler(this.Main_ProjectList_SelectedIndexChanged);
+            Main_ProjectList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            Main_ProjectList.BorderStyle = BorderStyle.None;
+            Main_ProjectList.FormattingEnabled = true;
+            Main_ProjectList.ItemHeight = 28;
+            Main_ProjectList.Location = new Point(0, 0);
+            Main_ProjectList.Margin = new Padding(0);
+            Main_ProjectList.Name = "Main_ProjectList";
+            Main_ProjectList.Size = new Size(384, 252);
+            Main_ProjectList.TabIndex = 1;
+            Main_ProjectList.SelectedIndexChanged += Main_ProjectList_SelectedIndexChanged;
             // 
             // Main_CreateProject
             // 
-            this.Main_CreateProject.Location = new System.Drawing.Point(140, 300);
-            this.Main_CreateProject.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Main_CreateProject.Name = "Main_CreateProject";
-            this.Main_CreateProject.Size = new System.Drawing.Size(100, 35);
-            this.Main_CreateProject.TabIndex = 2;
-            this.Main_CreateProject.Text = "Create project";
-            this.Main_CreateProject.UseVisualStyleBackColor = true;
-            this.Main_CreateProject.Click += new System.EventHandler(this.Main_CreateProject_Click);
+            Main_CreateProject.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            Main_CreateProject.Location = new Point(140, 300);
+            Main_CreateProject.Margin = new Padding(3, 4, 3, 4);
+            Main_CreateProject.Name = "Main_CreateProject";
+            Main_CreateProject.Size = new Size(100, 35);
+            Main_CreateProject.TabIndex = 2;
+            Main_CreateProject.Text = "Create project";
+            Main_CreateProject.UseVisualStyleBackColor = true;
+            Main_CreateProject.Click += Main_CreateProject_Click;
             // 
             // Main_DeleteProject
             // 
-            this.Main_DeleteProject.Enabled = false;
-            this.Main_DeleteProject.Location = new System.Drawing.Point(260, 300);
-            this.Main_DeleteProject.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Main_DeleteProject.Name = "Main_DeleteProject";
-            this.Main_DeleteProject.Size = new System.Drawing.Size(100, 35);
-            this.Main_DeleteProject.TabIndex = 4;
-            this.Main_DeleteProject.Text = "Delete project";
-            this.Main_DeleteProject.UseVisualStyleBackColor = true;
-            this.Main_DeleteProject.Click += new System.EventHandler(this.Main_DeleteProject_Click);
+            Main_DeleteProject.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            Main_DeleteProject.Enabled = false;
+            Main_DeleteProject.Location = new Point(260, 300);
+            Main_DeleteProject.Margin = new Padding(3, 4, 3, 4);
+            Main_DeleteProject.Name = "Main_DeleteProject";
+            Main_DeleteProject.Size = new Size(100, 35);
+            Main_DeleteProject.TabIndex = 4;
+            Main_DeleteProject.Text = "Delete project";
+            Main_DeleteProject.UseVisualStyleBackColor = true;
+            Main_DeleteProject.Click += Main_DeleteProject_Click;
             // 
-            // Form_Project
+            // FormProject
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(384, 361);
-            this.Controls.Add(this.Main_DeleteProject);
-            this.Controls.Add(this.Main_CreateProject);
-            this.Controls.Add(this.Main_ProjectList);
-            this.Controls.Add(this.Main_OpenProject);
-            this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "Form_Project";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Choose project";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_Project_FormClosed);
-            this.ResumeLayout(false);
-
+            AutoScaleMode = AutoScaleMode.None;
+            BackColor = Color.White;
+            ClientSize = new Size(384, 361);
+            Controls.Add(Main_DeleteProject);
+            Controls.Add(Main_CreateProject);
+            Controls.Add(Main_ProjectList);
+            Controls.Add(Main_OpenProject);
+            Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 4, 3, 4);
+            Name = "FormProject";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Choose project";
+            FormClosed += Form_Project_FormClosed;
+            ResumeLayout(false);
         }
 
         #endregion
